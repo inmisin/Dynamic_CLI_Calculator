@@ -8,29 +8,35 @@ double ChooseOperator(double num1, double num2, char op)
     switch(op)
     {
         case '+':
-            return (float)num1+num2;
-            break;
+            return num1+num2;
+            
         case '-':
-            return (float)num1-num2;
-            break;
+            return num1-num2;
+            
         case '*':   
-            return (float)num1*num2;
-            break;
+            return num1*num2;
+            
         case '/':
-            return (float)num1/num2;
-            break;
+            if(num2 == 0)
+            {
+                printf("Sıfıra bölemezsin! \n");
+                return 0.0;
+                break;
+            }
+            return num1/num2;
+            
         default:
             printf("Lütfen geçerli bir işlem yazınız! \n");
-            return 0.0f;
-            break;
+            return 0.0;
+            
     }
     return 1;
 }
 
 double CLI_Calculator(char *str)
 {
-    float num1 = 0.0;
-    float num2 = 0.0;
+    double num1 = 0.0;
+    double num2 = 0.0;
     char operator;
     if(str == NULL)
     {
@@ -38,13 +44,7 @@ double CLI_Calculator(char *str)
         return 0.0;
     }
 
-    sscanf(str, "%f %c %f", &num1, &operator, &num2);
-
-    if(num1 == 0.0)
-    {
-        //printf("num1 0.0 \n");
-        return 0.0;
-    }
+    sscanf(str, "%lf %c %lf", &num1, &operator, &num2);
 
     return ChooseOperator(num1,num2,operator);
 }
@@ -55,6 +55,10 @@ char *FindSize(char *str)
     size_t strSize = 0;
     while((character = getchar()) != '\n'&& character != EOF)
     {
+        if(character == 'q')
+        {
+            exit(EXIT_SUCCESS);
+        }
         strSize++;
         char *temp = realloc(str, strSize * sizeof(char));
         if(temp == NULL)
@@ -94,15 +98,8 @@ int main()
         printf("Bir hesaplama yazınız: \n");
         str = FindSize(str);
         //printf("Girdiğiniz hesaplama: %s \n", str);
-        float temp = CLI_Calculator(str);
-        if(temp == 0.0)
-        {
-            printf("Numara okunamadı! \n");
-        }
-        else
-        {
-            printf("Calculation is: %.2f \n", temp);
-        }
+        double temp = CLI_Calculator(str);
+        printf("Calculation is: %.2f \n", temp);
         free(str);
     }
     
