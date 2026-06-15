@@ -21,7 +21,7 @@ double ChooseOperator(double num1, double num2, char op)
             {
                 printf("Sıfıra bölemezsin! \n");
                 return 0.0;
-                break;
+                
             }
             return num1/num2;
             
@@ -106,8 +106,14 @@ int main()
         char *str = NULL;
         printf("Bir hesaplama yazınız: \n");
         str = FindSize(str);
+        if(str == NULL)
+        {
+            printf("size");
+            continue;
+        }
         //printf("Girdiğiniz hesaplama: %s \n", str);
         double temp = CLI_Calculator(str);
+
         printf("Calculation is: %.2f \n", temp);
         free(str);
     }
