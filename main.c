@@ -3,7 +3,6 @@
 #include <ctype.h>
 
 
-
 double ChooseOperator(double num1, double num2, char op)
 {
     switch(op)
@@ -69,6 +68,7 @@ char *FindSize(char *str)
         }
         strSize++;
         char *temp = realloc(str, strSize * sizeof(char));
+        // char *temp = (char *)malloc(strSize);
         if(temp == NULL)
         {
             printf("Yer ayarlanamadı\n");
@@ -76,9 +76,10 @@ char *FindSize(char *str)
             return NULL;
         }
         str = temp;
-
         str[strSize-1] = (char)character;
     }
+    
+    //printf("uzunluk %d", length); 
 
     strSize++;
     char *temp = realloc(str, strSize * sizeof(char));
