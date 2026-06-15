@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 
@@ -43,6 +44,13 @@ double CLI_Calculator(char *str)
         printf("str NULL");
         return 0.0;
     }
+
+    if(isalpha(str[0]))
+    {
+        printf("Geçersiz hesaplama! \n");
+        return 0.0;
+    }
+    
 
     sscanf(str, "%lf %c %lf", &num1, &operator, &num2);
 
